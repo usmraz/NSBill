@@ -138,14 +138,14 @@ const handleEditPayment = async (paymentId) => {
           </View>
         ) : (
           filtered.map(customer => (
-            <CustomerCard
-              key={customer.customerName}
-              customer={customer}
-              expanded={expandedCustomer === customer.customerName}
-              expandedFarmer={expandedFarmer}
-              onToggle={() => toggleCustomer(customer.customerName)}
-              onToggleFarmer={toggleFarmer}
-              onPrint={async () => {
+  <CustomerCard
+  key={customer.customerName}
+  customer={customer}
+  expanded={expandedCustomer === customer.customerName}
+  expandedFarmer={expandedFarmer}
+  onToggle={() => toggleCustomer(customer.customerName)}
+  onToggleFarmer={toggleFarmer}
+  onPrint={async () => {
     setPrintingCustomer(customer.customerName);
     try {
       await generateAndShareCustomerPDF(customer.customerName);
@@ -158,6 +158,7 @@ const handleEditPayment = async (paymentId) => {
   printing={printingCustomer === customer.customerName}
   onEditBill={handleEditBill}
   onEditPayment={handleEditPayment}
+  onLedgerReport={(name) => navigation.navigate('LedgerReport', { customerName: name })}
 />
             
           ))
@@ -171,7 +172,9 @@ const handleEditPayment = async (paymentId) => {
 
 // ── Customer Card ─────────────────────────────────────────
 function CustomerCard({
-  customer, expanded, expandedFarmer, onToggle, onToggleFarmer, onPrint, printing, onEditBill, onEditPayment
+  customer, expanded, expandedFarmer,
+  onToggle, onToggleFarmer, onPrint, printing,
+  onEditBill, onEditPayment, onLedgerReport,
 }) {
   return (
     <View style={styles.customerCard}>
@@ -206,19 +209,25 @@ function CustomerCard({
         <View style={styles.farmerList}>
 
           {/* Print PDF Button */}
-    <TouchableOpacity
-      style={[styles.printBtn, printing && { opacity: 0.6 }]}
-      onPress={onPrint}
-      disabled={printing}
-    >
-      {printing
-        ? <ActivityIndicator color="#7A2B83" size="small" />
-        : <Text style={styles.printBtnText}>
-            📄  Generate & Share PDF Ledger
-          </Text>
-      }
-    </TouchableOpacity>
+    <View style={styles.reportBtnRow}>
+  <TouchableOpacity
+    style={[styles.printBtn, { flex: 1 }, printing && { opacity: 0.6 }]}
+    onPress={onPrint}
+    disabled={printing}
+  >
+    {printing
+      ? <ActivityIndicator color="#7A2B83" size="small" />
+      : <Text style={styles.printBtnText}>📄 Customer PDF</Text>
+    }
+  </TouchableOpacity>
 
+  <TouchableOpacity
+    style={[styles.reportBtn, { flex: 1 }]}
+    onPress={() => onLedgerReport(customer.customerName)}
+  >
+    <Text style={styles.reportBtnText}>📊 Ledger Report</Text>
+  </TouchableOpacity>
+</View>
 
           {/* Advance balance row */}
           {customer.advanceBalance > 0 && (
@@ -536,13 +545,27 @@ const styles = StyleSheet.create({
 
   printBtn: {
   backgroundColor: '#f3e5f5',
-  borderRadius: 10, margin: 12,
-  paddingVertical: 12, alignItems: 'center',
-  borderWidth: 1.5, borderColor: '#7A2B83',
-  flexDirection: 'row', justifyContent: 'center',
+  borderRadius: 10, paddingVertical: 12,
+  alignItems: 'center', borderWidth: 1.5,
+  borderColor: '#7A2B83',
 },
+
 printBtnText: {
   color: '#7A2B83', fontWeight: '700', fontSize: 14,
 },
+reportBtnRow: {
+  flexDirection: 'row', gap: 8,
+  margin: 12,
+},
+reportBtn: {
+  backgroundColor: '#fff8e1',
+  borderRadius: 10, paddingVertical: 12,
+  alignItems: 'center', borderWidth: 1.5,
+  borderColor: '#F9E219',
+},
+reportBtnText: {
+  color: '#795548', fontWeight: '700', fontSize: 13,
+},
+
 
 });
