@@ -139,13 +139,13 @@ const handleEditPayment = async (paymentId) => {
         ) : (
           filtered.map(customer => (
   <CustomerCard
-  key={customer.customerName}
-  customer={customer}
-  expanded={expandedCustomer === customer.customerName}
-  expandedFarmer={expandedFarmer}
-  onToggle={() => toggleCustomer(customer.customerName)}
-  onToggleFarmer={toggleFarmer}
-  onPrint={async () => {
+      key={customer.customerName}
+      customer={customer}
+      expanded={expandedCustomer === customer.customerName}
+      expandedFarmer={expandedFarmer}
+      onToggle={() => toggleCustomer(customer.customerName)}
+      onToggleFarmer={toggleFarmer}
+      onPrint={async () => {
     setPrintingCustomer(customer.customerName);
     try {
       await generateAndShareCustomerPDF(customer.customerName);
@@ -155,11 +155,12 @@ const handleEditPayment = async (paymentId) => {
       setPrintingCustomer('');
     }
   }}
-  printing={printingCustomer === customer.customerName}
-  onEditBill={handleEditBill}
-  onEditPayment={handleEditPayment}
-  onLedgerReport={(name) => navigation.navigate('LedgerReport', { customerName: name })}
-/>
+      printing={printingCustomer === customer.customerName}
+      onEditBill={handleEditBill}
+      onEditPayment={handleEditPayment}
+      onLedgerReport={(name) => navigation.navigate('LedgerReport', { customerName: name })}
+      onFarmerSummary={(name) => navigation.navigate('FarmerSummaryReport', { customerName: name })}
+  />
             
           ))
         )}
@@ -174,7 +175,7 @@ const handleEditPayment = async (paymentId) => {
 function CustomerCard({
   customer, expanded, expandedFarmer,
   onToggle, onToggleFarmer, onPrint, printing,
-  onEditBill, onEditPayment, onLedgerReport,
+  onEditBill, onEditPayment, onLedgerReport, onFarmerSummary
 }) {
   return (
     <View style={styles.customerCard}>
@@ -209,7 +210,7 @@ function CustomerCard({
         <View style={styles.farmerList}>
 
           {/* Print PDF Button */}
-    <View style={styles.reportBtnRow}>
+   <View style={styles.reportBtnRow}>
   <TouchableOpacity
     style={[styles.printBtn, { flex: 1 }, printing && { opacity: 0.6 }]}
     onPress={onPrint}
@@ -217,7 +218,7 @@ function CustomerCard({
   >
     {printing
       ? <ActivityIndicator color="#7A2B83" size="small" />
-      : <Text style={styles.printBtnText}>📄 Customer PDF</Text>
+      : <Text style={styles.printBtnText}>📄 Statement</Text>
     }
   </TouchableOpacity>
 
@@ -225,7 +226,14 @@ function CustomerCard({
     style={[styles.reportBtn, { flex: 1 }]}
     onPress={() => onLedgerReport(customer.customerName)}
   >
-    <Text style={styles.reportBtnText}>📊 Ledger Report</Text>
+    <Text style={styles.reportBtnText}>📊 Ledger</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={[styles.summaryBtn, { flex: 1 }]}
+    onPress={() => onFarmerSummary(customer.customerName)}
+  >
+    <Text style={styles.reportBtnText}>👨‍🌾 Farmers</Text>
   </TouchableOpacity>
 </View>
 
@@ -565,6 +573,16 @@ reportBtn: {
 },
 reportBtnText: {
   color: '#795548', fontWeight: '700', fontSize: 13,
+},
+
+summaryBtn: {
+  backgroundColor: '#e8f5e9',
+  borderRadius: 10, paddingVertical: 12,
+  alignItems: 'center', borderWidth: 1.5,
+  borderColor: '#4caf50',
+},
+summaryBtnText: {
+  color: '#2e7d32', fontWeight: '700', fontSize: 12,
 },
 
 

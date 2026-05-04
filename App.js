@@ -17,6 +17,8 @@ import EditPaymentScreen    from './src/screens/EditPaymentScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import AllBillsScreen from './src/screens/AllBillsScreen';
 import LedgerReportScreen from './src/screens/LedgerReportScreen';
+import FarmerSummaryReportScreen from './src/screens/FarmerSummaryReportScreen';
+
 const Tab   = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -147,15 +149,21 @@ export default function App() {
             options={{ title: 'Edit Payment' }}
           />
           <Stack.Screen
-  name="LedgerReport"
-  component={LedgerReportScreen}
-  options={{ title: 'Ledger Report' }}
-/>
+            name="LedgerReport"
+            component={LedgerReportScreen}
+            options={{ title: 'Ledger Report' }}
+          />
           <Stack.Screen
-  name="AllBills"
-  component={AllBillsScreen}
-  options={{ title: 'All Bills' }}
-/>
+            name="FarmerSummaryReport"
+            component={FarmerSummaryReportScreen}
+            options={{ title: 'Farmer Summary Report' }}
+          />
+
+          <Stack.Screen
+            name="AllBills"
+            component={AllBillsScreen}
+            options={{ title: 'All Bills' }}
+          />
 
         </Stack.Navigator>
       </NavigationContainer>

@@ -131,24 +131,6 @@ const [defaultDays, setDefaultDays] = useState('15');
   </View>
 </View>
 
-{/* ── LEDGER REPORT ── */}
-<View style={styles.sectionCard}>
-  <Text style={styles.sectionIcon}>📊</Text>
-  <Text style={styles.sectionTitle}>Ledger Report</Text>
-  <Text style={styles.sectionDesc}>
-    Generate a professional black and white ledger statement
-    for any customer with date range filtering.
-  </Text>
-  <TouchableOpacity
-    style={[styles.btn, styles.btnPrimary]}
-    onPress={() => navigation.navigate('LedgerReport')}
-  >
-    <Text style={styles.btnTextWhite}>
-      📄  Generate Ledger Report
-    </Text>
-  </TouchableOpacity>
-</View>
-
 
         {/* ── BACKUP SECTION ── */}
         <View style={styles.sectionCard}>
