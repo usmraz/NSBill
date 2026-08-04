@@ -18,7 +18,8 @@ import SettingsScreen from './src/screens/SettingsScreen';
 import AllBillsScreen from './src/screens/AllBillsScreen';
 import LedgerReportScreen from './src/screens/LedgerReportScreen';
 import FarmerSummaryReportScreen from './src/screens/FarmerSummaryReportScreen';
-
+import FarmerSummaryViewScreen from './src/screens/FarmerSummaryViewScreen';
+import AllPaymentsScreen from './src/screens/AllPaymentsScreen';
 const Tab   = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -158,11 +159,22 @@ export default function App() {
             component={FarmerSummaryReportScreen}
             options={{ title: 'Farmer Summary Report' }}
           />
+          <Stack.Screen
+            name="FarmerSummaryView"
+            component={FarmerSummaryViewScreen}
+            options={{ title: 'Farmer Summary View' }}
+          />
 
           <Stack.Screen
             name="AllBills"
             component={AllBillsScreen}
             options={{ title: 'All Bills' }}
+          />
+
+          <Stack.Screen
+            name="AllPayments"
+            component={AllPaymentsScreen}
+            options={{ title: 'All Payments' }}
           />
 
         </Stack.Navigator>

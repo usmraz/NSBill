@@ -160,7 +160,8 @@ const handleEditPayment = async (paymentId) => {
       onEditPayment={handleEditPayment}
       onLedgerReport={(name) => navigation.navigate('LedgerReport', { customerName: name })}
       onFarmerSummary={(name) => navigation.navigate('FarmerSummaryReport', { customerName: name })}
-  />
+      onFarmerSummaryView={(name) => navigation.navigate('FarmerSummaryView', { customerName: name })}
+      />
             
           ))
         )}
@@ -175,7 +176,7 @@ const handleEditPayment = async (paymentId) => {
 function CustomerCard({
   customer, expanded, expandedFarmer,
   onToggle, onToggleFarmer, onPrint, printing,
-  onEditBill, onEditPayment, onLedgerReport, onFarmerSummary
+  onEditBill, onEditPayment, onLedgerReport, onFarmerSummary, onFarmerSummaryView
 }) {
   return (
     <View style={styles.customerCard}>
@@ -233,7 +234,14 @@ function CustomerCard({
     style={[styles.summaryBtn, { flex: 1 }]}
     onPress={() => onFarmerSummary(customer.customerName)}
   >
-    <Text style={styles.reportBtnText}>👨‍🌾 Farmers</Text>
+    <Text style={styles.summaryBtnText}>📄 Farmer PDF</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={[styles.viewSummaryBtn, { flex: 1 }]}
+    onPress={() => onFarmerSummaryView(customer.customerName)}
+  >
+    <Text style={styles.viewSummaryBtnText}>👁️ View</Text>
   </TouchableOpacity>
 </View>
 
@@ -583,6 +591,16 @@ summaryBtn: {
 },
 summaryBtnText: {
   color: '#2e7d32', fontWeight: '700', fontSize: 12,
+},
+
+viewSummaryBtn: {
+  backgroundColor: '#e3f2fd',
+  borderRadius: 10, paddingVertical: 12,
+  alignItems: 'center', borderWidth: 1.5,
+  borderColor: '#1976d2',
+},
+viewSummaryBtnText: {
+  color: '#1565c0', fontWeight: '700', fontSize: 12,
 },
 
 

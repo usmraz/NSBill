@@ -135,7 +135,7 @@ export default function DashboardScreen({ navigation }) {
         )}
 
         {/* ── ACTION BUTTONS ── */}
-        <View style={styles.actionRow}>
+       <View style={styles.actionRow}>
   <TouchableOpacity
     style={styles.addButton}
     onPress={() => navigation.navigate('AddBillTab')}
@@ -148,14 +148,24 @@ export default function DashboardScreen({ navigation }) {
     onPress={() => navigation.navigate('ReceivePayment')}
   >
     <Text style={styles.addButtonIcon}>💰</Text>
-    <Text style={styles.paymentButtonText}>Receive Payment</Text>
+    <Text style={styles.paymentButtonText}>Receive Pay</Text>
   </TouchableOpacity>
+</View>
+
+<View style={styles.actionRow}>
   <TouchableOpacity
     style={styles.allBillsButton}
     onPress={() => navigation.navigate('AllBills')}
   >
     <Text style={styles.addButtonIcon}>📋</Text>
     <Text style={styles.allBillsButtonText}>All Bills</Text>
+  </TouchableOpacity>
+  <TouchableOpacity
+    style={styles.allPaymentsButton}
+    onPress={() => navigation.navigate('AllPayments')}
+  >
+    <Text style={styles.addButtonIcon}>💳</Text>
+    <Text style={styles.allPaymentsButtonText}>All Payments</Text>
   </TouchableOpacity>
 </View>
         {/* ── SEARCH BAR ── */}
@@ -504,6 +514,15 @@ const styles = StyleSheet.create({
     fontSize: 12, color: '#aaa',
     paddingHorizontal: 14, paddingBottom: 10,
   },
+
+  allPaymentsButton: {
+  flex: 1, backgroundColor: '#4a148c',
+  borderRadius: 14, paddingVertical: 16,
+  alignItems: 'center', elevation: 4,
+},
+allPaymentsButtonText: {
+  color: '#fff', fontSize: 14, fontWeight: 'bold',
+},
 
   // Empty State
   emptyState:    { alignItems: 'center', paddingVertical: 40, paddingHorizontal: 30 },
